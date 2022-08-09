@@ -1,0 +1,14 @@
+上一个版本中我们在HttpResponse的setEntity方法上做了些操作
+先创建了一个Map保存资源后缀与Content-Type的值的对应,然后根据资源的后缀
+从这里取到对应的类型设置响应头
+但是实际上这个Map并不需要每次设置正文时都创建一遍,里面的内容是定死的,
+可以将其设置为静态的,全局一份即可,每次用都从里面获取即可,没必要每次现创建一份
+
+实现:
+1:在com.webserver.http包下新建一个类:HttpContext
+这个类将来用于定义所有HTTP协议规定的内容,以便其他类引用.
+2:在HttpContext中定义一个静态属性:static Map mimeMapping
+3:在静态块中完成mimeMapping的初始化操作
+就是将HttpResponse中setEntity方法里的Map初始化移动到这里
+4:提供一个静态方法:getMimeType可以根据资源后缀名获取Content-Type值
+5:HttpResponse的setEntity方法中改为调用getMimeType获取值设置响应头

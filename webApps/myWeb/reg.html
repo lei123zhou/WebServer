@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户注册</title>
+</head>
+<body>
+<h1>用户注册</h1>
+<!--
+action决定表单提交的位置:./regUser浏览器理解的位置为:
+http://localhost:8088/myWeb/regUser
+浏览器在理解“./regUser”中的“当前目录./”是基于请求当前
+注册页面的路径:
+-->
+<!--
+http://localhost:8088/myWeb/regUser?userName=123&password=12333&nickName=asd&age=22
+-->
+<!--<form action="./regUser" method="get">-->
+<form action="./regUser" method="post">
+    <table>
+        <tr>
+            <td>用户名</td>
+            <td><input type="text" name="userName"/></td>
+        </tr>
+        <tr>
+            <td>密码</td>
+            <td><input type="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td>昵称</td>
+            <td><input type="text" name="nickName"/></td>
+        </tr>
+        <tr>
+            <td>年龄</td>
+            <td><input type="number" name="age"/></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <button type="submit">
+                    注册
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

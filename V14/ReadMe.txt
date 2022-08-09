@@ -1,0 +1,3 @@
+在HttpRequest的进一步解析uri的方法:parseUri()中添加了对参数对象的转换,
+使用API:
+URLDecoder的静态方法defcode即可
