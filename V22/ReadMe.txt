@@ -1,0 +1,2 @@
+利用反射机制对DispatcherServlet处理业务部分进行重构.做到将来添加新
+业务(无论是新添加一个Controller类还是在某个)
