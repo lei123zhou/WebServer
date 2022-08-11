@@ -3,7 +3,7 @@ package com.webserver.core;
 import com.webserver.http.HttpRequest;
 import com.webserver.http.HttpResponse;
 import com.webserver.servlet.DispatcherServlet;
-import src.main.java.com.webserver.http.EmptyRequestException;
+//import com.webserver.http;
 
 import java.io.*;
 import java.net.Socket;
@@ -43,7 +43,7 @@ public class ClientHandler implements Runnable {
 
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (EmptyRequestException e) {
+        } catch (Exception e) {
             //空请求异常捕获后什么都不同坐
         } finally {
             try {

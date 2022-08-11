@@ -1,5 +1,7 @@
 package com.webserver.controller;
 
+import com.webserver.annotation.Controller;
+import com.webserver.annotation.RequestMapping;
 import com.webserver.http.HttpRequest;
 import com.webserver.http.HttpResponse;
 import com.webserver.vo.Article;
@@ -11,7 +13,9 @@ import java.util.List;
 /**
  * 处理与文章相关业务
  */
+@Controller
 public class ArticleController {
+    @RequestMapping("/myWeb/createArticle")
     public void create(HttpRequest request, HttpResponse response) {
         System.out.println("开始处理发表文章");
         String title = request.getParameters("title");
@@ -36,6 +40,7 @@ public class ArticleController {
         System.out.println("文章处理完毕");
     }
 
+    @RequestMapping("/myWeb/showAllArticle")
     public void showAllArticle(HttpRequest request, HttpResponse response) {
         System.out.println("开始");
         //扫面users目录下所有的.obj文件并反序列化得到所有的User对象

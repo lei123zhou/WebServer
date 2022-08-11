@@ -1,5 +1,7 @@
 package com.webserver.controller;
 
+import com.webserver.annotation.Controller;
+import com.webserver.annotation.RequestMapping;
 import com.webserver.http.HttpRequest;
 import com.webserver.http.HttpResponse;
 import com.webserver.vo.User;
@@ -11,7 +13,9 @@ import java.util.List;
 /**
  * 处理与用户相关的操作
  */
+@Controller
 public class UserController {
+    @RequestMapping("/myWeb/regUser")
     public void reg(HttpRequest request, HttpResponse response) {
         System.out.println("开始处理注册");
 
@@ -63,6 +67,7 @@ public class UserController {
         System.out.println("处理注册完毕");
     }
 
+    @RequestMapping("/myWeb/loginUser")
     public void login(HttpRequest request, HttpResponse response) {
         System.out.println("开始处理登陆");
         String username = request.getParameters("userName");
@@ -96,6 +101,7 @@ public class UserController {
         System.out.println("处理登陆完毕");
     }
 
+    @RequestMapping("/myWeb/showAllUser")
     public void showAllUser(HttpRequest request, HttpResponse response) {
         System.out.println("开始");
         //扫面users目录下所有的.obj文件并反序列化得到所有的User对象
