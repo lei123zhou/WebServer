@@ -4,9 +4,13 @@ import com.webserver.annotation.Controller;
 import com.webserver.annotation.RequestMapping;
 import com.webserver.http.HttpRequest;
 import com.webserver.http.HttpResponse;
+import com.webserver.utils.DBUtils;
 import com.webserver.vo.User;
 
 import java.io.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,24 +49,40 @@ public class UserController {
          * 判断用户是否注册如果是重复的用户则直接响应重复用户的提示页面:
          * have_user.html中显示一行字:该用户已存在,请重新注册
          * */
-        File userFile = new File("./users/" + userName + ".obj");
-        if (userFile.exists()) {
-            response.setEntity(new File("./webApps/myWeb/have_user.html"));
-            return;
-        }
-        try (
-                ObjectOutputStream oos = new ObjectOutputStream(
-                        new FileOutputStream(
-                                "./users/" + userName + ".obj"
-                        )
-                )
-        ) {
-            User user = new User(userName, passWord, age, nickName);
-            oos.writeObject(user);
+//        File userFile = new File("./users/" + userName + ".obj");
+//        if (userFile.exists()) {
+//            response.setEntity(new File("./webApps/myWeb/have_user.html"));
+//            return;
+//        }
+//        try (
+//                ObjectOutputStream oos = new ObjectOutputStream(
+//                        new FileOutputStream(
+//                                "./users/" + userName + ".obj"
+//                        )
+//                )
+//        ) {
+//            User user = new User(userName, passWord, age, nickName);
+//            oos.writeObject(user);
+//            File file = new File("./webApps/myWeb/reg_success.html");
+//            response.setEntity(file);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        //上面得到的参数保存到user表中
+        //获取连接
+        try (Connection conn = DBUtils.getCon();) {
+            String sql = "insert into user values(null,?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, userName);
+            ps.setString(2, passWord);
+            ps.setString(3, nickName);
+            ps.setInt(4, age);
+            ps.executeUpdate();//执行
+            //给客户端返回成功
             File file = new File("./webApps/myWeb/reg_success.html");
             response.setEntity(file);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         System.out.println("处理注册完毕");
     }
