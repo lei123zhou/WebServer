@@ -7,6 +7,7 @@ import com.webserver.servlet.DispatcherServlet;
 
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 
 /**
@@ -44,6 +45,10 @@ public class ClientHandler implements Runnable {
             e.printStackTrace();
         } catch (EmptyRequestException e) {
             //空请求异常捕获后什么都不同坐
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         } finally {
             try {
                 //交互完毕后与客户端断开链接(HTTP协议要求的)
